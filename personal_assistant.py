@@ -59,7 +59,7 @@ class ManageNotes:
                     print('Не удалось импортировать заметки')
             elif choice == "7":
                 try:
-                    df.to_csv(input('Путь до файла'), index=False)
+                    df.to_json('notes.json')
                     print('Заметки успешно экспортированы')
                 except Exception:
                     print('Не удалось экспортировать заметки')
@@ -123,16 +123,16 @@ class ManageNotes:
                         print('Не удалось импортировать задачи')
             elif choice == '7':
                     try:
-                        df.to_csv(input('Путь до файла'), index=False)
+                        df.to_json('tasks.json')
                         print('Задачи успешно экспортированы')
                     except Exception:
                         print('Не удалось экспортировать задачи')
     def manage_contacts(self):
         while True:
             print("1)Создание нового контакта")
-            print("2) Поиск контакта по имени или номеру телефона")
-            print("3) Редактирование контакта")
-            print("4) Удаление контакта")
+            print("2)Поиск контакта по имени или номеру телефона")
+            print("3)Редактирование контакта")
+            print("4)Удаление контакта")
             print("5)Импорт контактов в формте CSV")
             print("6)Экспорт контактов в формте CSV")
             choice = input("Выш выбор: ")
@@ -176,11 +176,11 @@ class ManageNotes:
                     print('Не удалось импортировать контакты')
             elif choice == '6':
                 try:
-                    df.to_csv(input('Путь до файла'), index=False)
+                    df.to_json('contacts.json')
                     print('Контакты успешно экспортированы')
                 except Exception:
                     print('Не удалось экспортировать контакты')
-    def Manage_FinanceRecords(self):
+    def manage_financerecords(self):
         while True:
             print("1)Добавить финансовую запись")
             print("2)просмотр всех финансвовых записок")
@@ -216,8 +216,56 @@ class ManageNotes:
                     print('Не удалось импортировать финансовые записи')
             elif choice == '5':
                 try:
-                    df.to_csv(input('Путь до файла'), index=False)
+                    df.to_json('finance.json')
                     print('Финансовые записи успешно экспортированы')
                 except Exception:
                     print("Не удалось экспортировать финансовые записи")
+    def calculator(num1, num2, operation):
+
+        try:
+            if operation == 'add':
+                return num1 + num2
+            elif operation == 'subtract':
+                return num1 - num2
+            elif operation == 'multiply':
+                return num1 * num2
+            elif operation == 'divide':
+                if num2 == 0:
+                    raise ValueError("Ошибка: Деление на ноль!")
+                return num1 / num2
+            else:
+                raise ValueError("Ошибка: Неверная операция. Используйте 'add', 'subtract', 'multiply' или 'divide'.")
+        except Exception as e:
+            return str(e)
             
+
+def main():
+    manager = ManageNotes()
+    print("Добро пожаловать в Персональный помощник!")
+    while True:
+        print("Выберите действие:")
+        print("1) Управление заметками")
+        print("2) Управление задачами")
+        print("3) Управление контактами")
+        print("4) Управление финансовыми записями")
+        print("5) Калькулятор")
+        print("6) Выход")
+        choice = input("Ваш выбор: ")
+        if choice == '1':
+            manager.manage_notes()
+        elif choice == '2':
+            manager.manage_tasks()
+        elif choice == '3':
+            manager.manage_contacts()
+        elif choice == '4':
+            manager.manage_finance_records()
+        elif choice == '5':
+            manager.manage_finance_records()
+        elif choice == '6':
+            break
+        else:
+            print("Неверный выбор, попробуйте снова.")
+
+
+if __name__ == "__main__":
+    main()
